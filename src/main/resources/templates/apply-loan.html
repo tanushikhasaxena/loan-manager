@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Apply for Loan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function toggleCoApplicant() {
+            const coApplicantSection = document.getElementById('co-applicant-section');
+            coApplicantSection.classList.toggle('hidden');
+        }
+    </script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white shadow-xl rounded-2xl p-10 w-full max-w-4xl">
+        <h2 class="text-3xl font-bold mb-6 text-center text-indigo-600">LOAN APPLICATION</h2>
+        
+        <form th:action="@{/loans/apply}" method="post" class="space-y-8">
+            
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+            <!-- Personal Information -->
+            <fieldset class="space-y-4">
+                <legend class="text-xl font-semibold text-gray-700 mb-2">Personal Information</legend>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                        <input type="text" name="fullName" required class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Date of Birth</label>
+                        <input type="date" name="dateOfBirth" required class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Phone Number</label>
+                        <input type="tel" name="phoneNumber" pattern="[0-9]{10}" required class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Address</label>
+                        <textarea name="address" required class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Employment & Income -->
+            <fieldset class="space-y-4">
+                <legend class="text-xl font-semibold text-gray-700 mb-2">Employment Details</legend>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Employment Status</label>
+                        <select name="employmentStatus" required class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                            <option value="SALARIED">Salaried</option>
+                            <option value="SELF_EMPLOYED">Self-Employed</option>
+                            <option value="UNEMPLOYED">Unemployed</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Current Employer</label>
+                        <input type="text" name="currentEmployer" class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Job Title</label>
+                        <input type="text" name="jobTitle" class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Years in Current Job</label>
+                        <input type="number" name="yearsInCurrentJob" class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Monthly Income (₹)</label>
+                        <input type="number" name="monthlyIncome" step="0.01" required class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Annual Income (₹)</label>
+                        <input type="number" name="annualIncome" step="0.01" required class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" name="hasExistingLoans" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                        <label class="ml-2 block text-sm text-gray-700">Do you have existing loans?</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Financial Details -->
+            <fieldset class="space-y-4">
+                <legend class="text-xl font-semibold text-gray-700 mb-2">Financial Details</legend>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">CIBIL Score</label>
+                        <input type="number" name="cibilScore" min="300" max="900" class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Bank Account Number</label>
+                        <input type="text" name="bankAccountNumber" pattern="[0-9]{9,18}" class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">PAN Card Number</label>
+                        <input type="text" name="panCardNumber" pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Loan Details -->
+            <fieldset class="space-y-4">
+                <legend class="text-xl font-semibold text-gray-700 mb-2">Loan Details</legend>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Loan Amount (₹)</label>
+                        <input type="number" name="loanAmount" step="0.01" required class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Loan Purpose</label>
+                        <select name="loanPurpose" required class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                            <option value="HOME">Home Loan</option>
+                            <option value="EDUCATION">Education Loan</option>
+                            <option value="PERSONAL">Personal Loan</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Loan Tenure (Months)</label>
+                        <input type="number" name="loanTenureMonths" required class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Preferred EMI Start Date</label>
+                        <input type="date" name="emiStartDate" class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Co-Applicant Section -->
+            <div class="space-y-4">
+                <div class="flex items-center">
+                    <input type="checkbox" onclick="toggleCoApplicant()" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                    <label class="ml-2 block text-sm text-gray-700">Add Co-Applicant</label>
+                </div>
+                
+                <div id="co-applicant-section" class="hidden space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Co-Applicant Name</label>
+                            <input type="text" name="coApplicantName" class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Co-Applicant Income (₹)</label>
+                            <input type="number" name="coApplicantIncome" step="0.01" class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center flex justify-center gap-4 mt-6">
+    <a href="/loans/dashboard"
+       class="inline-block bg-gray-200 text-gray-800 font-semibold px-6 py-2 rounded-lg hover:bg-gray-300 transition duration-300 shadow-md">
+        Back
+    </a>
+    <button type="submit"
+            class="inline-block bg-indigo-600 text-white font-semibold px-6 py-2 rounded-lg hover:bg-indigo-700 transition duration-300 shadow-md">
+        Submit Application
+    </button>
+</div>
+
+
+            
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+# Compiled source and build output
+/target/
+build/
+out/
+
+# Maven wrapper
+!.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Eclipse
+.classpath
+.project
+.settings/
+.apt_generated
+.factorypath
+.springBeans
+.sts4-cache
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.*
+
+# Database files
+*.h2.db
+*.mv.db
+
+# Node/npm (if you have a frontend)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+application.properties
+
+application-local.properties
+application-dev.properties
+application-test.properties
+application-prod.properties
+
+# Others
+HELP.md
+
+
+!**/src/main/**/target/
+!**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
