@@ -10,8 +10,12 @@ COPY src ./src
 COPY mvnw .
 COPY .mvn ./.mvn
 
+# Grant execute permission to the Maven wrapper script
+RUN chmod +x ./mvnw
+
 # Package the application using Maven to a JAR file
 RUN ./mvnw clean package -DskipTests
 
+# The JAR file is created in the target directory
 # Set the entry point to run the JAR file
 ENTRYPOINT ["java", "-jar", "/app/target/loan-management-0.0.1-SNAPSHOT.jar"]
